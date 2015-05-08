@@ -80,8 +80,8 @@ Meteor.Neo4j = (function() {
       if(_this.ready){
         return new _n4j.GraphDatabase(_this.url).query(query, opts, function(err, results){
           _.forEach(GraphDatabase.callbacks, function(cb){
-            if(cb){
-              cb(query, opts);
+            if(cb){ 
+              Meteor.wrapAsync(cb, {query: query, opts: opts})
             }
           });
 
